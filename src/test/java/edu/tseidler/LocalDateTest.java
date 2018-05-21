@@ -2,6 +2,7 @@ package edu.tseidler;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -9,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 
 public class LocalDateTest {
 
-    public static final LocalDate MY_BIRTHDAY = LocalDate.of(1986, 03, 17);
+    private static final LocalDate MY_BIRTHDAY = LocalDate.of(1986, 03, 17);
 
     @Test
     public void comparingDates() {
@@ -27,4 +28,5 @@ public class LocalDateTest {
         System.out.println("from epoch to birthday in days: " + LocalDate.EPOCH.until(MY_BIRTHDAY, ChronoUnit.DAYS));
         System.out.println("from epoch to birthday in months: " + LocalDate.EPOCH.until(MY_BIRTHDAY, ChronoUnit.MONTHS));
     }
+
 }
