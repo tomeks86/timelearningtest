@@ -1,7 +1,9 @@
 package edu.tseidler;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.stream.IntStream;
@@ -16,13 +18,13 @@ public class Main {
 
         LocalDate nextFriday = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY));
 
-        TemporalAdjuster NEXT_WORKDAY = w -> {
-            LocalDate result = (LocalDate) w;
+        TemporalAdjuster NEXT_WORKDAY = TemporalAdjusters.ofDateAdjuster(w -> {
+            LocalDate result = w;
             do {
                 result = result.plusDays(1);
             } while (result.getDayOfWeek().getValue() >= 6);
             return result;
-        };
+        });
 
         LocalDate nextWorkDay = nextFriday.with(NEXT_WORKDAY);
         System.out.println("next workday after friday: " + nextWorkDay);
@@ -69,9 +71,9 @@ public class Main {
                 LocalTime.of(1, 58),
                 ZoneId.of("Europe/Berlin"));
         System.out.println(skipped);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.println("one minute later: " + skipped);
-            skipped = skipped.plusMinutes(1);
+            skipped = skipped.plusMinutes(10);
         }
         System.out.println();
 
@@ -89,5 +91,19 @@ public class Main {
         System.out.printf("hours from birthday to explosion: %s\n", myBirthday.until(czarnobyl, ChronoUnit.HOURS));
         System.out.printf("minutes from birthday to explosion: %s\n", myBirthday.until(czarnobyl, ChronoUnit.MINUTES));
 
+        System.out.println();
+        TemporalAdjuster NEXT_FRIDAY = TemporalAdjusters.ofDateAdjuster(d -> {
+            do
+                d = d.plusDays(1);
+            while (d.getDayOfWeek().getValue() != 5);
+            return d;
+        });
+        System.out.printf("today: %s\n", LocalDate.now());
+        System.out.printf("next Friday: %s\n", LocalDate.now().with(NEXT_FRIDAY));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMMM-dd");
+        System.out.println(formatter.format(LocalDate.now()));
+        System.out.println(formatter.format(LocalDate.of(2017, 2, 28)));
+        LocalDate test = LocalDate.parse("2017-lutego-31", formatter);
+        System.out.println(test);
     }
 }
