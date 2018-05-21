@@ -57,5 +57,30 @@ public class Main {
         IntStream.rangeClosed(1991, 2015)
                 .filter(i -> someDay.atYear(i).getDayOfWeek() == DayOfWeek.THURSDAY)
                 .forEach(System.out::println);
+
+        ZonedDateTime apollo11launch = ZonedDateTime.of(1969, 7, 16, 9, 32, 0, 0, ZoneId.of("America/New_York"));
+        ZonedDateTime zonedNow = now.atZone(ZoneId.of("UTC"));
+        System.out.println(apollo11launch.until(zonedNow, ChronoUnit.HOURS));
+        System.out.println();
+
+        System.out.println("time zone change:");
+        ZonedDateTime skipped = ZonedDateTime.of(
+                LocalDate.of(2013, 3, 31),
+                LocalTime.of(1, 58),
+                ZoneId.of("Europe/Berlin"));
+        System.out.println(skipped);
+        for (int i = 0; i < 10; i++) {
+            System.out.println("one minute later: " + skipped);
+            skipped = skipped.plusMinutes(1);
+        }
+        System.out.println();
+
+        ZonedDateTime czarnobyl = ZonedDateTime.of(LocalDate.of(1986, Month.APRIL, 26), LocalTime.of(1, 23, 44), ZoneId.of("Europe/Kiev"));
+        System.out.printf("explosion in Czarnobyl: " + czarnobyl);
+        System.out.printf("today time");
+        System.out.printf("years after explosion: %s\n", czarnobyl.until(zonedNow, ChronoUnit.YEARS));
+        System.out.printf("months after explosion: %s\n", czarnobyl.until(zonedNow, ChronoUnit.MONTHS));
+        System.out.printf("seconds after explosion: %s\n", czarnobyl.until(zonedNow, ChronoUnit.SECONDS));
+
     }
 }
