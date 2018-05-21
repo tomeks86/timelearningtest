@@ -76,11 +76,18 @@ public class Main {
         System.out.println();
 
         ZonedDateTime czarnobyl = ZonedDateTime.of(LocalDate.of(1986, Month.APRIL, 26), LocalTime.of(1, 23, 44), ZoneId.of("Europe/Kiev"));
-        System.out.printf("explosion in Czarnobyl: " + czarnobyl);
-        System.out.printf("today time");
+        ZonedDateTime myBirthday = ZonedDateTime.of(LocalDate.of(1986, Month.MARCH, 17), LocalTime.of(20, 30), ZoneId.of("Europe/Warsaw"));
+        System.out.printf("explosion in Czarnobyl: %s\n", czarnobyl);
+        System.out.printf("today time %s\n", zonedNow);
         System.out.printf("years after explosion: %s\n", czarnobyl.until(zonedNow, ChronoUnit.YEARS));
         System.out.printf("months after explosion: %s\n", czarnobyl.until(zonedNow, ChronoUnit.MONTHS));
         System.out.printf("seconds after explosion: %s\n", czarnobyl.until(zonedNow, ChronoUnit.SECONDS));
+
+        System.out.println();
+        System.out.printf("my birthday: %s\n", myBirthday);
+        System.out.printf("today time %s\n", zonedNow);
+        System.out.printf("hours from birthday to explosion: %s\n", myBirthday.until(czarnobyl, ChronoUnit.HOURS));
+        System.out.printf("minutes from birthday to explosion: %s\n", myBirthday.until(czarnobyl, ChronoUnit.MINUTES));
 
     }
 }
