@@ -4,12 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class LocalDateTest {
 
-    public static final LocalDate MY_BIRTHDAY = LocalDate.of(1986, 03, 17);
+    private static final LocalDate MY_BIRTHDAY = LocalDate.of(1986, Month.MARCH, 17);
 
     @Test
     public void comparingDates() {
